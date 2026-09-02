@@ -306,7 +306,7 @@ High
 
 ## 👨‍💻 Author
 
-**Your Name**
+**Sameer Raza**
 
 Computer Science / AI & Machine Learning Project
 
