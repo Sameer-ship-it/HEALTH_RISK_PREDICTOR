@@ -1,30 +1,42 @@
 # Health Risk Predictor
 
-A Streamlit learning project that uses a trained scikit-learn Random Forest model to estimate a broad health-risk category from lifestyle and health inputs.
+![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white) ![Streamlit](https://img.shields.io/badge/UI-Streamlit-FF4B4B?logo=streamlit&logoColor=white) ![scikit--learn](https://img.shields.io/badge/ML-scikit--learn-F7931E?logo=scikitlearn&logoColor=white)
 
-> **Educational demo only.** This model is not clinically validated and must not be used for diagnosis, treatment, or healthcare decisions.
+A Streamlit application that loads a saved scikit-learn classifier and encoders to demonstrate a health-risk category prediction workflow. It is a learning project, not a medical product.
 
-## What it demonstrates
+> **Safety notice:** Educational demonstration only. The model is not clinically validated. Do not use its output for diagnosis, treatment, or healthcare decisions.
 
-- A Streamlit form for structured input
-- Categorical feature encoding and model inference
-- A saved model and encoder loaded from pickle files
-- A simple visualization of selected input factors
+## What the project demonstrates
 
-The training notebook documents the workflow and experiments. The checked-in application loads the model artifacts directly; it does not train the model at startup.
+- Collecting structured input in a Streamlit interface
+- Encoding categorical values before model inference
+- Loading a saved Random Forest model and label encoders
+- Presenting a predicted category with simple visual context
 
-## Project files
+## Prediction flow
+
+```mermaid
+flowchart LR
+    A[User inputs] --> B[Feature encoding]
+    B --> C[Saved Random Forest model]
+    C --> D[Predicted risk category]
+    D --> E[Streamlit result view]
+```
+
+The checked-in application loads serialized artifacts at runtime; it does not train a model when the app starts. The notebook documents data exploration and training experiments.
+
+## Repository contents
 
 | File | Purpose |
 | --- | --- |
 | `app.py` | Streamlit interface and prediction flow |
-| `Health_RiskPredictor.ipynb` | Data exploration and model-training notebook |
-| `Health_RiskPredictor.pkl` | Serialized model |
-| `label_encoder.pkl` | Serialized label encoders |
+| `Health_RiskPredictor.ipynb` | Data exploration and model training experiments |
+| `Health_RiskPredictor.pkl` | Serialized classifier |
+| `label_encoder.pkl` | Serialized encoders |
 
 ## Run locally
 
-Use Python 3 and install the packages used by the app:
+Use Python 3. Create and activate a virtual environment, then install the app's direct dependencies.
 
 ```bash
 git clone https://github.com/Sameer-ship-it/HEALTH_RISK_PREDICTOR.git
@@ -32,34 +44,34 @@ cd HEALTH_RISK_PREDICTOR
 python -m venv .venv
 ```
 
-Activate the environment, then install the dependencies:
+Activate the environment:
+
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+On macOS or Linux, use:
 
 ```bash
-# Windows PowerShell
-.venv\Scripts\Activate.ps1
-# macOS / Linux
 source .venv/bin/activate
 ```
+
+Then install and run:
 
 ```bash
 python -m pip install streamlit pandas numpy scikit-learn matplotlib plotly
 streamlit run app.py
 ```
 
-The application opens at the local URL printed by Streamlit.
+Open the local URL printed by Streamlit.
 
-## Model and data notes
+## Data, artifacts, and limitations
 
-The notebook uses a synthetic health dataset and records model experiments. Metrics in a notebook are not evidence of clinical performance; evaluate the final model on a documented, representative holdout set before making any performance claims. The repository does not include a separate CSV training dataset.
+- The notebook uses a synthetic health dataset; a separate training CSV is not included.
+- Notebook metrics are experimental and do not establish clinical performance. Any future evaluation should use a documented, representative holdout dataset and appropriate review.
+- Python pickle files can execute code when loaded. Load only artifacts you trust; do not replace them with untrusted files.
+- This project is not suitable for real patient information or deployment in a clinical setting.
 
-Only load pickle files from sources you trust. Pickle deserialization can execute code.
+## License
 
-## Limitations
-
-- Synthetic or limited training data may not represent real populations.
-- The output is a model estimate, not a medical assessment.
-- The feature set and thresholds are demonstration choices, not clinical guidance.
-
-## Author
-
-[Sameer Raza](https://github.com/Sameer-ship-it)
+No license file is currently included. Contact the repository owner before reusing or redistributing this project.
