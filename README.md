@@ -1,319 +1,77 @@
-# 🩺 Health Risk Predictor
+# Health Risk Predictor
 
-A machine learning-based **Health Risk Prediction web application** built with **Python, Scikit-learn, and Streamlit**.
+![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white) ![Streamlit](https://img.shields.io/badge/UI-Streamlit-FF4B4B?logo=streamlit&logoColor=white) ![scikit--learn](https://img.shields.io/badge/ML-scikit--learn-F7931E?logo=scikitlearn&logoColor=white)
 
-The application takes lifestyle and health-related inputs such as age, diet quality, exercise frequency, sleep duration, stress level, BMI, smoking, alcohol consumption, and family history, and predicts the user's overall **health risk level**.
+A Streamlit application that loads a saved scikit-learn classifier and encoders to demonstrate a health-risk category prediction workflow. It is a learning project, not a medical product.
 
-> **Note:** This project is for educational and demonstration purposes only. It is not a medical diagnostic system.
+> **Safety notice:** Educational demonstration only. The model is not clinically validated. Do not use its output for diagnosis, treatment, or healthcare decisions.
 
----
+## What the project demonstrates
 
-## 🚀 Features
+- Collecting structured input in a Streamlit interface
+- Encoding categorical values before model inference
+- Loading a saved Random Forest model and label encoders
+- Presenting a predicted category with simple visual context
 
-* Predicts health risk level using a Machine Learning model
-* Interactive web interface built with Streamlit
-* Takes multiple lifestyle and health-related inputs
-* Converts categorical data using Label Encoding
-* Uses a trained Random Forest Classifier
-* Displays the predicted risk level
-* Provides a visualization of selected health factors
-* Saved trained model and encoders are loaded using Pickle
+## Prediction flow
 
----
-
-## 🧠 Machine Learning
-
-### Algorithm Used
-
-**Random Forest Classifier**
-
-The model was trained using:
-
-* `n_estimators = 100`
-* `random_state = 42`
-
-Random Forest was selected after experimenting with Logistic Regression and Random Forest.
-
-The project notebook records approximately **96% accuracy for the Random Forest model**, while Logistic Regression was noted at approximately 85%.
-
-> Accuracy should be independently verified using the final test set before treating these numbers as official benchmark results.
-
----
-
-## 📊 Input Features
-
-The model uses the following features:
-
-| Feature             | Description                      |
-| ------------------- | -------------------------------- |
-| Age                 | User's age                       |
-| Diet Quality        | Poor / Average / Good            |
-| Exercise Days       | Number of exercise days per week |
-| Sleep Hours         | Average sleep duration           |
-| Stress Level        | Low / Medium / High              |
-| BMI                 | Body Mass Index                  |
-| Smoking             | Yes / No                         |
-| Alcohol Consumption | Low / Medium / High              |
-| Family History      | Yes / No                         |
-
-The training dataset contains the same feature structure and a target column named `risk_level`.
-
----
-
-## 🔄 Project Workflow
-
-```text
-                ┌─────────────────────┐
-                │   Health Dataset    │
-                └──────────┬──────────┘
-                           │
-                           ▼
-                ┌─────────────────────┐
-                │ Data Preprocessing  │
-                └──────────┬──────────┘
-                           │
-                           ▼
-                ┌─────────────────────┐
-                │ Label Encoding      │
-                │ Categorical Data    │
-                └──────────┬──────────┘
-                           │
-                           ▼
-                ┌─────────────────────┐
-                │ Train/Test Split    │
-                └──────────┬──────────┘
-                           │
-                           ▼
-                ┌─────────────────────┐
-                │ Random Forest       │
-                │ Classifier          │
-                └──────────┬──────────┘
-                           │
-                           ▼
-                ┌─────────────────────┐
-                │ Save Model +        │
-                │ Encoders using      │
-                │ Pickle              │
-                └──────────┬──────────┘
-                           │
-                           ▼
-                ┌─────────────────────┐
-                │ Streamlit Web App   │
-                └──────────┬──────────┘
-                           │
-                           ▼
-                ┌─────────────────────┐
-                │ Predicted Risk      │
-                │ Level               │
-                └─────────────────────┘
+```mermaid
+flowchart LR
+    A[User inputs] --> B[Feature encoding]
+    B --> C[Saved Random Forest model]
+    C --> D[Predicted risk category]
+    D --> E[Streamlit result view]
 ```
 
----
+The checked-in application loads serialized artifacts at runtime; it does not train a model when the app starts. The notebook documents data exploration and training experiments.
 
-## 🛠️ Technologies Used
+## Repository contents
 
-* **Python**
-* **Pandas**
-* **NumPy**
-* **Scikit-learn**
-* **Streamlit**
-* **Matplotlib**
-* **Plotly**
-* **Pickle**
+| File | Purpose |
+| --- | --- |
+| `app.py` | Streamlit interface and prediction flow |
+| `Health_RiskPredictor.ipynb` | Data exploration and model training experiments |
+| `Health_RiskPredictor.pkl` | Serialized classifier |
+| `label_encoder.pkl` | Serialized encoders |
 
----
+## Run locally
 
-## 📁 Project Structure
-
-```text
-Health-Risk-Predictor/
-│
-├── app.py
-├── Health_RiskPredictor.pkl
-├── label_encoder.pkl
-├── synthetic_health_data.csv
-├── requirements.txt
-└── README.md
-```
-
-### File Description
-
-| File                        | Purpose                     |
-| --------------------------- | --------------------------- |
-| `app.py`                    | Streamlit application       |
-| `Health_RiskPredictor.pkl`  | Trained Random Forest model |
-| `label_encoder.pkl`         | Saved LabelEncoder objects  |
-| `synthetic_health_data.csv` | Dataset used for training   |
-| `requirements.txt`          | Required Python packages    |
-| `README.md`                 | Project documentation       |
-
-The trained model and encoder dictionary were serialized using Pickle for use inside the Streamlit application.
-
----
-
-## ⚙️ Installation
-
-### 1. Clone the repository
+Use Python 3. Create and activate a virtual environment, then install the app's direct dependencies.
 
 ```bash
-git clone https://github.com/your-username/health-risk-predictor.git
+git clone https://github.com/Sameer-ship-it/HEALTH_RISK_PREDICTOR.git
+cd HEALTH_RISK_PREDICTOR
+python -m venv .venv
 ```
 
-### 2. Navigate to the project directory
+Activate the environment:
 
-```bash
-cd health-risk-predictor
+```powershell
+.venv\Scripts\Activate.ps1
 ```
 
-### 3. Create a virtual environment
+On macOS or Linux, use:
 
 ```bash
-python -m venv venv
+source .venv/bin/activate
 ```
 
-### 4. Activate the virtual environment
-
-**Windows:**
+Then install and run:
 
 ```bash
-venv\Scripts\activate
-```
-
-**Linux / macOS:**
-
-```bash
-source venv/bin/activate
-```
-
-### 5. Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### 6. Run the Streamlit application
-
-```bash
+python -m pip install streamlit pandas numpy scikit-learn matplotlib plotly
 streamlit run app.py
 ```
 
-The application will open in your browser.
+Open the local URL printed by Streamlit.
 
----
+## Data, artifacts, and limitations
 
-## 💻 How It Works
+- The notebook uses a synthetic health dataset; a separate training CSV is not included.
+- Notebook metrics are experimental and do not establish clinical performance. Any future evaluation should use a documented, representative holdout dataset and appropriate review.
+- Python pickle files can execute code when loaded. Load only artifacts you trust; do not replace them with untrusted files.
+- This project is not suitable for real patient information or deployment in a clinical setting.
 
-The user enters their health and lifestyle information through the Streamlit interface.
+## License
 
-The categorical inputs are converted into numerical values using the previously trained LabelEncoders.
-
-The resulting feature vector is passed to the trained Random Forest model:
-
-```python
-prediction = model.predict([input_data])
-```
-
-The numerical prediction is then converted back into a human-readable risk level using the saved `risk_level` encoder.
-
----
-
-## 📈 Visualization
-
-The application also displays a pie chart representing selected health-related factors including:
-
-* Diet
-* Exercise
-* Sleep
-* Stress
-* BMI
-
-This provides a simple visual representation alongside the prediction.
-
----
-
-## 🎯 Example
-
-### Input
-
-```text
-Age: 25
-Diet Quality: Good
-Exercise Days: 5
-Sleep Hours: 8
-Stress Level: Low
-BMI: 22
-Smoking: No
-Alcohol Consumption: Low
-Family History: No
-```
-
-### Output
-
-```text
-Predicted Risk Level: Low
-```
-
-*The actual output depends on the trained model and encoded input values.*
-
----
-
-## 🔬 Model Training
-
-The dataset is divided into training and testing sets using an **80/20 split** with `random_state=42`.
-
-Categorical columns are converted into numerical representations using Scikit-learn's `LabelEncoder`.
-
-The target variable is:
-
-```text
-risk_level
-```
-
-Possible risk categories in the dataset include:
-
-```text
-Low
-Medium
-High
-```
-
----
-
-## ⚠️ Limitations
-
-* The dataset used for this project is synthetic.
-* The prediction should not be interpreted as a medical diagnosis.
-* Model performance depends heavily on the quality and representativeness of the training dataset.
-* The current application uses a relatively small set of health and lifestyle features.
-* The recorded accuracy should not be considered evidence of clinical reliability.
-
----
-
-## 🔮 Future Improvements
-
-* Use a larger and clinically validated dataset
-* Add additional health parameters
-* Compare multiple ML algorithms
-* Add proper model evaluation metrics
-* Display prediction probabilities
-* Add feature importance analysis
-* Improve UI/UX
-* Deploy the application online
-* Add personalized health recommendations
-* Implement cross-validation and hyperparameter tuning
-
----
-
-## 👨‍💻 Author
-
-**Sameer Raza**
-
-Computer Science / AI & Machine Learning Project
-
----
-
-## 📜 Disclaimer
-
-This project was developed for **educational and demonstration purposes**.
-
-The predictions generated by this application should **not be used for medical diagnosis, treatment, or healthcare decisions**. Always consult a qualified healthcare professional for medical advice.
+No license file is currently included. Contact the repository owner before reusing or redistributing this project.
